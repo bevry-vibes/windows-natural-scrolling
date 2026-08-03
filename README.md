@@ -55,7 +55,7 @@ Pick a device from the arrow-key menu, then an axis (vertical / horizontal), the
 
 - **Up/Down** move the highlight (with wrap-around), **Enter** confirms, **number keys** select a row directly, **Esc** backs out one level, **Ctrl+C** quits gracefully from anywhere (exit code 130).
 - Devices and their states are re-enumerated every time the device menu renders, so plug/unplug events and changes are visible immediately.
-- Applying an action returns to the same device's axis menu (its states re-read on render), so flipping the other axis or checking the result needs no re-selection; Esc from there reaches the refreshed device menu.
+- Applying an action returns to the same device's axis menu (its states re-read on render) with the highlight advanced one row — vertical lands on horizontal, horizontal lands on **Back to devices** — so flipping both axes takes no cursor moves; Esc from there reaches the refreshed device menu.
 - The highlight always starts on the option matching the current state, marked `[already the case]` — browsing and backing out changes nothing, so the TUI doubles as an inspector.
 - The reconnect reminder is only printed when a change was actually applied.
 

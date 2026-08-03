@@ -421,6 +421,7 @@ function Invoke-InteractiveSession {
 		if ($deviceIndex -eq -1 -or $deviceIndex -eq $deviceRows.Count - 1) { break }
 
 		$d = $Devices[$deviceIndex]
+		$axisCursor = 0  # axis-menu highlight for this visit: advances past the axis just handled
 		while ($true) {
 			# --- Level 2: axis menu for the chosen device (states re-read here too). ---
 			Write-Host ""
@@ -433,7 +434,7 @@ function Invoke-InteractiveSession {
 				"Horizontal scroll  $($S.Subtle)(current:$($S.Reset) $(Get-ScrollAxisStyledLabel -Value $h)$($S.Subtle))$($S.Reset)",
 				"$($S.Subtle)Back to devices$($S.Reset)"
 			)
-			$axisIndex = Read-MenuChoice -Rows $axisRows -Initial 0
+			$axisIndex = Read-MenuChoice -Rows $axisRows -Initial $axisCursor
 			if ($axisIndex -eq -2) { $aborted = $true; break }
 			if ($axisIndex -lt 0 -or $axisIndex -eq 2) { break }
 
@@ -453,11 +454,12 @@ function Invoke-InteractiveSession {
 			Write-Host "$($S.Header)[$axisLabel scroll]$($S.Reset) $($S.Subtle)current:$($S.Reset) $(Get-ScrollAxisStyledLabel -Value $current)"
 			$actionIndex = Read-MenuChoice -Rows $actionRows -Initial $currentIndex
 			if ($actionIndex -eq -2) { $aborted = $true; break }
-			if ($actionIndex -lt 0 -or $actionIndex -eq 3) { continue }
+			if ($actionIndex -lt 0 -or $actionIndex -eq 3) { $axisCursor = $axisIndex; continue }
 
 			$action = @('Enable', 'Disable', 'Delete')[$actionIndex]
 			$result = Set-ScrollAxisValue -RegPath $d.RegPath -ParameterName $paramName -Action $action
 			if (Write-ScrollAxisOutcome -AxisLabel $axisLabel -Result $result) { $changesMade = $true }
+			$axisCursor = $axisIndex + 1  # vertical -> horizontal, horizontal -> Back to devices
 			continue  # action completed -> back to this device's axis menu (states re-read on render)
 		}
 		if ($aborted) { break }
