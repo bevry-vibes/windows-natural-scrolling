@@ -398,7 +398,7 @@ function Out-DeviceList {
 
 
 # ---------------------------------------------------------------------------
-# The three-level interactive session: device menu (devices AND states re-enumerated on every render, so plug/unplug and changes are visible immediately) -> axis menu -> action menu -> back to the refreshed device menu. Esc backs out one level (quits at the top); Ctrl+C aborts the whole session. Returns an object: Changes = $true when at least one change was applied (reconnect reminder), Aborted = $true when quit via Ctrl+C (exit code 130).
+# The three-level interactive session: device menu (devices AND states re-enumerated on every render, so plug/unplug and changes are visible immediately) -> axis menu -> action menu -> back to the same device's axis menu (states re-read on render, so the change shows immediately). Esc backs out one level (quits at the top); Ctrl+C aborts the whole session. Returns an object: Changes = $true when at least one change was applied (reconnect reminder), Aborted = $true when quit via Ctrl+C (exit code 130).
 # ---------------------------------------------------------------------------
 function Invoke-InteractiveSession {
 	$changesMade = $false
@@ -458,7 +458,7 @@ function Invoke-InteractiveSession {
 			$action = @('Enable', 'Disable', 'Delete')[$actionIndex]
 			$result = Set-ScrollAxisValue -RegPath $d.RegPath -ParameterName $paramName -Action $action
 			if (Write-ScrollAxisOutcome -AxisLabel $axisLabel -Result $result) { $changesMade = $true }
-			break  # action completed -> back to the (re-enumerated) device menu
+			continue  # action completed -> back to this device's axis menu (states re-read on render)
 		}
 		if ($aborted) { break }
 	}
