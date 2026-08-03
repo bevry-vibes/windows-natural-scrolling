@@ -32,11 +32,12 @@ When a value is absent (not set), it resolves to the Microsoft default (unnatura
 
 ## Opening an elevated shell
 
-Any of these works — no Ctrl+clicking required:
+Any of these works:
 
+- **Windows Terminal Ctrl+click:** hold **Ctrl** and click the `pwsh` profile in the new-tab dropdown (the **∨** chevron next to the **+**) — the tab opens elevated.
 - **From an existing shell (CLI):** `Start-Process pwsh -Verb RunAs` — accept the UAC prompt and a new elevated `pwsh` window opens.
 - **Start menu:** type `pwsh`, right-click **PowerShell 7** → **Run as administrator**. Or press **Win+X** and choose **Terminal (Admin)** / **Windows PowerShell (Admin)**.
-- **Windows Terminal:** enable **Run as administrator** on the profile (Settings → your `pwsh` profile → **Run as administrator**, or `"elevate": true` in `settings.json`), or launch Windows Terminal itself as administrator (all of its tabs are then elevated).
+- **Windows Terminal profile:** enable **Run as administrator** on the profile (Settings → your `pwsh` profile → **Run as administrator**, or `"elevate": true` in `settings.json`), or launch Windows Terminal itself as administrator (all of its tabs are then elevated).
 - **Windows 11 24H2+:** enable **Sudo for Windows** (Settings → System → For developers → **Enable sudo**), then `sudo pwsh` — in "inline" mode it elevates within the same window.
 - **gsudo** (third party): `winget install gerardog.gsudo`, then `gsudo pwsh` elevates in place.
 
