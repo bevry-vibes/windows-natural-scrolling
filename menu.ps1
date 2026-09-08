@@ -17,7 +17,7 @@ Running this file directly (pwsh menu.ps1) shows a demo menu.
 Limitations: rows must be single-line; the row count must fit within the console buffer height; an interactive console is required (the function throws if input is redirected).
 
 License: Reciprocal Public License 1.5 <http://spdx.org/licenses/RPL-1.5.html>
-https://github.com/bevry-labs/windows-natural-scrolling
+https://github.com/bevry-vibes/windows-natural-scrolling
 #>
 
 
