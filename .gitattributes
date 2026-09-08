@@ -3,3 +3,6 @@
 
 # never modify any line ending in any file, disregarding all nonsense from eol, autocrlf, renormalize, safecrlf, usecrlfattr, allBinary
 * -text
+
+# =====================================
+# CUSTOM
